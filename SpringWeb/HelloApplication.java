@@ -1,5 +1,6 @@
 package com.example.hello.controller;
 
+import com.example.hello.dto.UserRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -40,5 +41,14 @@ public class GetApiController {
     ){
         return name+" "+email+" "+age;
     }
+
+    @GetMapping(path="query-param03")
+    public String queryParam03(UserRequest user){
+        System.out.println(user.getName());
+        System.out.println(user.getEmail());
+        System.out.println(user.getAge());
+        return user.toString();
+    }
+
 
 }
