@@ -1,13 +1,36 @@
-package com.example.hello;
+package com.example.hello.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.*;
 
-@SpringBootApplication
-public class HelloApplication {
+import java.util.Map;
 
-    public static void main(String[] args) {
-        SpringApplication.run(HelloApplication.class, args);
+@RestController
+@RequestMapping("/api/get")
+public class GetApiController {
+
+    @GetMapping(path="/hello")
+    public String getHello(){
+        return "get Hello";
     }
 
+    @GetMapping("/path-variable{name}")
+    public String pathVariable(@PathVariable(name="name") String pathname){
+        System.out.println("PathVal:"+pathname);
+
+        return pathname;
+    }
+    @GetMapping(path="query-param")
+    public String queryParam(@RequestParam Map<String,String> queryParam){
+        StringBuilder sb=new StringBuilder();
+        queryParam.entrySet().forEach(entry->{
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+            System.out.println("/n");
+
+            sb.append(entry.getKey()+"="+entry.getValue()+"/n");
+        });
+        return sb.toString();
+
+
+    }
 }
