@@ -30,7 +30,15 @@ public class GetApiController {
             sb.append(entry.getKey()+"="+entry.getValue()+"/n");
         });
         return sb.toString();
-
-
     }
+
+    @GetMapping(path="query-param02")
+    public String queryParam02(
+        @RequestParam String name,
+        @RequestParam String email,
+        @RequestParam int age
+    ){
+        return name+" "+email+" "+age;
+    }
+
 }
