@@ -50,16 +50,24 @@ public class ThreadTest {
 
 	public static void main(String[] args) {
 
-		System.out.println(Thread.currentThread());
+		System.out.println(Thread.currentThread()+"start");
 		MyThread th1 = new MyThread();
 		th1.start();
 		
 		MyThread th2 = new MyThread();
 		th2.start();
+		System.out.println(Thread.currentThread()+"start");
 	}
 
 }
 ```
+
+이떄 쓰레드가 실행되면서 run이라는 메서드를 실행한다.
+
+* main쓰레드와 MyThread2개 총 3개의 Thread가 실행된다.
+> main쓰레드는 쓰레드를 2개 생성하고 종료
+
+> 나머지는 switch되면서 i를 플러스
 
 ### Runnable 인터페이스 구현하여 만들기
 
@@ -99,6 +107,20 @@ public class ThreadTest2 {
 
 }
 ```
+
+Runnable을 implements한 클래스를 따로 정의하거나, 쓰레드클래스를 extends한 클래스를 따로 만들 필요 없이 익명객체로 바로 run을 구현할 수 있다.
+```
+Runnable run=new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+```
+
+
 
 ## Thread Status
 
