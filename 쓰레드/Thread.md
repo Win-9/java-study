@@ -125,3 +125,8 @@ Runnable run=new Runnable() {
 ## Thread Status
 
 ![image](https://user-images.githubusercontent.com/80390524/122151664-e65be680-ce9a-11eb-9c21-d27f3c42f438.png)
+
+
+> notify()는 무작위의 쓰레드중 하나를 깨우고, notifyAll()은 모든 스레드를다 깨운다.
+
+> join()은 다른 쓰레드가 끝날때가지 Not Runnable상태로 빠지다가 쓰레드 실행이 끝나면 RUnnable상태로 들어온다.
