@@ -198,7 +198,55 @@ public class PriorityTest {
 ![image](https://user-images.githubusercontent.com/80390524/122155332-c0861000-cea1-11eb-9e86-2f2f3efdaaa8.png)
 
 
-- 1부터 50, 51부터 100 까지의 합을 구하는 두 개의 Thread를 만들어 그 결과를 확인해보세요
+- 1부터 50, 51부터 100 까지의 합을 구하는 두 개의 Thread
+
+1. join하기전
+```
+package ex18;
+
+public class JoinTest extends Thread {
+	int start;
+	int end;
+	int total;
+	
+	public JoinTest(int start,int end) {
+		this.start=start;
+		this.end=end;
+	}
+	
+	public void run() {
+		int i;
+		for(i=start;i<=end;i++) {
+			total+=i;
+		}
+	}
+	
+	
+	public static void main(String[]args) {
+		JoinTest jt1=new JoinTest(0, 50);
+		JoinTest jt2=new JoinTest(51, 100);
+		
+		jt1.start();
+		jt2.start();
+		
+		int lt=jt1.total+jt2.total;
+		
+		System.out.println("jt1:"+jt1.total);
+		System.out.println("jt2:"+jt2.total);
+		
+		System.out.println("total:"+lt);
+		
+	}
+	
+}
+
+
+```
+
+![image](https://user-images.githubusercontent.com/80390524/122174318-980c0f00-cebd-11eb-8f89-6c7d5fd5a1af.png)
+
+main쓰레드는 다른 스레드를 생성하고 종료를 한다.
+이때 jt1,jt2쓰레드를 생성한후, 값이 다 더해지기전에 이미 각각의 total을 더해버렸으므로 합한 값이 0이 나온다.
 
 ```
 public class JoinTest extends Thread{
@@ -252,6 +300,10 @@ public class JoinTest extends Thread{
 }
 ```
 
+![image](https://user-images.githubusercontent.com/80390524/122176122-39e02b80-cebf-11eb-8217-7ef8a4332c61.png)
+
+
+
 ## interrupt()
 
 - 다른 Thread에 예외를 발생시키는 interrupt를 보낸다.
@@ -262,4 +314,5 @@ public class JoinTest extends Thread{
 ## Thread 종료하기
 
 - Thread를 종료할 때 사용함
+- 무한 반복의 경우 while(flag)의 flag변수값을 활용하여 스레드를 종료.
 
