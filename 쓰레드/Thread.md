@@ -134,7 +134,7 @@ Runnable run=new Runnable() {
 
 
 
-# 21. Thread 클래스의 여러 메서드들
+# Thread 클래스의 여러 메서드들
 
 ## Thread 우선순위
 
