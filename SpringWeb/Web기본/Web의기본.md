@@ -49,11 +49,11 @@ l) 자원의 식별
 
  > HTTP 기반의 REST 에서는 HTTP method 와 Header z珍 그리고 URI의 포함되는 정보로 표현할 수 있다.
 * ex)
-- GET: https://fov.co.kr/useHloo: 사용자의 정보요청
-- post: https://fov.co.kr/user: 사용자의 정보 생성
-- PUT: https://fov.co.kr/user: 사용자의 정보생성 및 수정
-- DELETE: https://fw.co.kr/user: 사용자 정보 삭제
-- 그 외에 담지 못한 정보들은 URI의 메세지를 통하여 표현한다.
+ - GET: https://fov.co.kr/useHloo: 사용자의 정보요청
+ - post: https://fov.co.kr/user: 사용자의 정보 생성
+ - PUT: https://fov.co.kr/user: 사용자의 정보생성 및 수정
+ - DELETE: https://fw.co.kr/user: 사용자 정보 삭제
+ - 그 외에 담지 못한 정보들은 URI의 메세지를 통하여 표현한다.
 
 4) Application 상태에 대한 엔진으로써 하이퍼 미디어
 > REST API를 개발할 때 단순히 Client 요청에 대한 데이터만 응답 해 주는 것이 아니락 관련된 리소스에 대한 Link 정보까지 같이 포함돼져야 한다.
