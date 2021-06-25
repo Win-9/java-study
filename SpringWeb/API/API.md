@@ -175,3 +175,31 @@
 ```
 작성은 Camelcase지만 요청은 Snakecase인경우 해당 변수에 @JasonProperty("변수이름")의 형식의 어노테이션을 붙어줘야한다.
 또한 Camelcase와 Snakecase형식이 둘다아닌 다른 형식에서도 활용이 가능하다.
+
+
+# PUT API
+리소스가 없으면 생성, 리소스가 있으면 업데이트를 한다.
+> 멱등성
+
+안정적이지 않으며, POST API와 비슷하다
+
+*Json디자인과 똑같이 구성해주면 된다.(요청이 기본 JSON으로 오기 때문)
+
+![Screenshot_20210625-212445_Noteshelf](https://user-images.githubusercontent.com/80390524/123424422-c5fafd00-d5fb-11eb-84f0-647ee21f36ac.jpg)
+
+요청 Jason이 형식으로 되어있다고 하면, Dto도 이 형식으로 맞추어 준다.
+![1624623936275](https://user-images.githubusercontent.com/80390524/123424519-e925ac80-d5fb-11eb-83ce-103fb7a7ab3a.png)
+
+![1624623940716](https://user-images.githubusercontent.com/80390524/123424539-ee82f700-d5fb-11eb-87b0-31da23b75011.png)
+Car List의 형식을 CarDto로 다시 맞추어서 구성해 준다.
+
+> 실행시 Camel Case와 Snake Case형식이 일치하지 않을 수 있으므로 Clas자체를 여러 케이스로변환해주는 Annotation인 JsonNaming을 사용한다.
+
+
+
+# DELETE API
+
+DELETE는 Request가 틀리지 않는 이상 삭제가 되거나, 데이터가 없어도 삭제 했다는 멱등성이 이기 때문에 항상 '200'의 응답을 받게된다.
+
+![1624624174456](https://user-images.githubusercontent.com/80390524/123424940-75d06a80-d5fc-11eb-8865-ebcdb194a022.png)
+PathVariable이므로 userId와 변수이름을 일치 시켜주는게 중요하다. 
