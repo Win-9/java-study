@@ -77,6 +77,13 @@ public class ApplicationContextProvider implements ApplicationContextAware {
 @Component는 Bean으로 등록되면서,Spring이 관리하도록 한다.
 > Spring이 실행될때 component가 붙은 클래스를 찾아서 싱글톤 형태로 만들어 관리한다.
 
+
+* Bean
+  - spring 에서 pogo 를 'Beans' 라고 부른다. (spring 에서 생성된 객체를 Bean 이라고 생각해도 무방)
+  - Beans 수 애플리케이션의 핵심을 이루는 객체이며, Spring I 이 컨테이너에 의해 인스턴스 후 관리, 생성된다.
+  - Beans 는 우리가 컨테이너에 공급하는 설정 메타데이터에 의해 생성된다.
+  - 애플리케이션의 객체가 지정되면, 해당 객체는 get Beans () 메소드를 통해 가져올 수 있다.
+
 ```java
 public class Encoder {
 
