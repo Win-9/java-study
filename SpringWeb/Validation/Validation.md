@@ -66,3 +66,55 @@ size로 들어온 문자의 길이의 제한을 걸어주고, 형식의 일치�
 * AsserTrue
 > return이 true이면 정상, 함수의 return이 boolean이면 is로 이름이 시작되어야 한다.
 
+
+### constrain validator를 이용
+
+어노테이션을 직접 말들어서 어느곳에서나 예외를 처리 할 수 있도록 하는것이 핵심히다.
+
+```java
+@Constraint(validatedBy = {YearMonthValidator.class})
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Retention(RUNTIME)
+public @interface YearMonth {
+
+    String message() default "yyyyMM 형식에 맞지 않습니다.";
+
+    Class<?>[] groups() default { };
+
+    Class<? extends Payload>[] payload() default { };
+
+    String pattern() default "yyyyMMdd";
+}
+```
+```java
+public class YearMonthValidator implements ConstraintValidator<YearMonth, String> {
+
+    private String pattern;
+
+    @Override
+    public void initialize(YearMonth constraintAnnotation) {
+        this.pattern = constraintAnnotation.pattern();
+    }
+
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+
+        // yyyyMM
+        try{
+            LocalDate localDate = LocalDate.parse(value+"01" , DateTimeFormatter.ofPattern(this.pattern));
+        }catch (Exception e){
+            return false;
+        }
+
+
+        return true;
+    }
+}
+```
+
+초기화 했을때는 annotation이 지정된 pattern을 가져오고, 그 pattern을 가지고 어노테이션에 지정된 형식으로 value가 잘 들어갔는지 확인한다.
+
+> @yearMonth는 다른 어떤 DTO가 만들어 지더라도 그냥 붙히기만 하면 된다. ==> 재사용이 가능하다!!!
+
+
+만약 class안에 List라던지 다른 객체가 존재할때 @valid가 있어야 검사가 정상적으로 이루어진다.
