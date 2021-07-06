@@ -56,3 +56,88 @@ Request란 내용이 Content 에 담겨 읽을 수 있다.
   2. @Slf4j: log를 사용해서 정보를 찍을 수 있다. (log.info())
   3. NoArgsConstructor: 기본생성자 생성
   4. AllArgsConstructor: 모든 필드에 대한 생성자 생성
+
+
+# InterCeptor
+
+InterCeptor란 Filter와 매우 유사한 형태로 존재하지만, 차이점은 Spring Context에 등록된다. AOP와 유사한 기능을 제공 할 수있으며 주로
+인증단계를 처리하거나, Logging을 하는데 사용한다.
+
+![image](https://user-images.githubusercontent.com/80390524/124606831-3b8e8500-dea8-11eb-924d-3f9f697ad8cc.png)
+
+
+```java
+@RestController
+@RequestMapping("/api/private")
+@Auth
+public class PrivateController {
+
+    @GetMapping
+    public String hello(){
+        return "private hello";
+    }
+}
+```
+
+세션을 검사하여 @Auth가 있는 controller는 통과하고 , 없으면 통과하지 못하도록 한다.
+PrivateController는 @Auth가 있기 때문에 true를 return 하고,
+@Auth가 없는 publicController는 false를 return 하게된다. 
+
+> False에 대한 Exception처리도 가능하다.
+
+
+```java
+@Component
+@Slf4j
+public class AuthInterceptor implements HandlerInterceptor {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        String url=request.getRequestURI();
+        URI uri =UriComponentsBuilder.fromUriString(request.getRequestURI())
+                .query(request.getQueryString())
+                .build()
+                .toUri();
+
+
+        log.info("request url:{}",url);
+        boolean hasAnnotaion=checkAnnotation(handler, Auth.class);
+        log.info("has annotation:{}",hasAnnotaion);
+
+        //all Public
+        //Auth권한을 가진 요청에 대해서는 세션,쿠키
+
+        if(hasAnnotaion){
+            //권한체크
+            String query=uri.getQuery();
+            if(query.equals("name=steve")){
+                return true;
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean checkAnnotation(Object handler,Class clazz){
+        if(handler instanceof ResourceHttpRequestHandler){
+            return true;
+        }
+        HandlerMethod handlerMethod=(HandlerMethod) handler;
+
+        if(null!=handlerMethod.getMethodAnnotation(clazz)||null!=handlerMethod.getBeanType().getAnnotation(clazz)){
+            return true;
+        }
+        return false;
+    }
+}
+```
+InterCeptor에서 리소스가 HTML파일이거나 그외 리소스에 대한 요청이면 통과, 어노테이션을 가지고 있으면 true를 return한다.
+> return false이면 동작하지 않는다.
+
+어노테이션의 유뮤를 가지고 처리를 할 수 있고 , 특정 URL에 대하여 제외하고 싶으면 addPattern 도는 ExcludePattern으로 패턴을 추가하거나 제외시킬 수 있다.
+
+> @Auth가 메소드에도 붙힐 수 있다. 따라서 특정 Controller에서 특정 메소드만 검사를 하고 싶으면 사용해도 좋이지만 , 일관성이 떨어지고 유지보수하기도 힘들기 때문에
+> Controller나 URL에서만 사용하는것이 좋다.
+
+
