@@ -35,7 +35,11 @@ chain 전에있는 부분을 전처리, chain후에 있는 부분을 후처리 �
 요청을 하게되면 우선적으로 Filter를 거치게 된다. 이 Filter부분에서 read()를 해버리기 때문에 커서는 맨뒤로가있는 상태에서 controller로 가기때문에
 컴파일러가 읽을수가 없게되어 오류가 발생한다.
 
-따라서 각
+따라서 각각 Request a Response 를 Content caching Request wrapper/Response wrapper 로 변환
+
++ 당장 들어 왔을 때 Read 를 하지 않는다. do Filter 를 통해 실제 내부 stream 안으로 들어가야 그 메소드가 시행이 되서
+Request란 내용이 Content 에 담겨 읽을 수 있다.
+∴ do Filter 이후 내용을 읽어야 한다.
 
 이후에 Client는 아무 응답을 받지 못하는데 마찬가지로 body의 커서가 맨 뒤에 있기때문이다.
 따라서 httpServletResponse.CopyBodyToResponse()로 내용을 복사해서 내용을 채워넣는다.
