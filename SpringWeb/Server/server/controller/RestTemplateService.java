@@ -56,4 +56,20 @@ public class RestTemplateService {
 
         return response.getBody();
     }
+    
+    @PostMapping("/user/{userId}/name/{userName}")
+    public Req<User> post(@RequestBody Req<User> user,
+                          @PathVariable int userId,
+                          @PathVariable String userName,
+                          @RequestHeader("x-authorization") String authorization,
+                          @RequestHeader("custom-header")String customheader){
+        log.info("userId:{},username:{}",userId,userName);
+        log.info("authorization:{},cutom{}",authorization,customheader);
+        log.info("client req:{}",user);
+
+        Req<User>response=new Req<>();
+        response.setHeader(new Req.Header());
+        response.setBody(user.getBody());
+        return response ;
+    }
 }
