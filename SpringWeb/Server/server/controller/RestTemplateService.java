@@ -1,62 +1,68 @@
-package com.example.client.server;
+package com.example.server.controller;
 
 
-import com.example.client.dto.UserRequest;
-import com.example.client.dto.UserResponse;
+import com.example.server.dto.Req;
+import com.example.server.dto.User;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
-@Service
-public class RestTemplateService {
+@RestController
+@RequestMapping("/api/server")
+@Slf4j
+public class ServerApiController {
 
-    public UserResponse hello(){
+    //https://openapi.naver.com/v1/search/local.json?
+    // query=%EC%A3%BC%EC%8B%9D
+    // &display=10
+    // &start=1
+    // &sort=random
+    @GetMapping("/naver")
+    public String naver(){
+
+        String query="조유진";
+        String encode= Base64.getEncoder().encodeToString(query.getBytes(StandardCharsets.UTF_8));
+
         URI uri= UriComponentsBuilder
-                .fromUriString("http://localhost:9090")
-                .path("/api/server/hello")
-                .queryParam("name","steve")
-                .queryParam("age",10)
-                .encode()
+                .fromUriString("https://openapi.naver.com")
+                .queryParam("query","조유진")
+                .queryParam("display",10)
+                .queryParam("start",1)
+                .queryParam("sort","random")
+                .encode(Charset.forName("UTF-8"))
                 .build()
                 .toUri();
 
-        System.out.println(uri.toString());
-
         RestTemplate restTemplate=new RestTemplate();
-        ResponseEntity<UserResponse> result=restTemplate.getForEntity(uri,UserResponse.class);
 
-        System.out.println(result.getStatusCode());
-        System.out.println(result.getBody());
+        RequestEntity<Void>req=RequestEntity
+                .get(uri)
+                .header("X-Naver-Client-Id","GWfP0exvbNWuOLtsQruq")
+                .header("X-Naver-Client-Secret","c7KDiO7jlG")
+                .build();
+
+
+        ResponseEntity<String> result=restTemplate.exchange(req,String.class);
 
         return result.getBody();
     }
-    public UserRequest post(){
-        URI uri=UriComponentsBuilder
-                .fromUriString("http://localhost:9090")
-                .path("/api/server/user/{userId}/name/{userName}")
-                .encode()
-                .build()
-                .expand("100","steve")
-                .toUri();
 
-        System.out.println(uri);
-
-        UserRequest userRequest=new UserRequest();
-        userRequest.setName("steve");
-        userRequest.setAge(10);
-
-        RestTemplate restTemplate=new RestTemplate();
-        ResponseEntity<UserRequest> response=restTemplate.postForEntity(uri,userRequest,UserRequest.class);
-
-        System.out.println(response.getStatusCode());
-        System.out.println(response.getBody());
-
-        return response.getBody();
+    @GetMapping("/hello")
+    public User hello(@RequestParam String name,@RequestParam int age){
+        User user=new User();
+        user.setName(name);
+        user.setAge(age);
+        return user;
     }
-    
+
     @PostMapping("/user/{userId}/name/{userName}")
     public Req<User> post(@RequestBody Req<User> user,
                           @PathVariable int userId,
