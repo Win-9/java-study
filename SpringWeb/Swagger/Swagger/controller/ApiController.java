@@ -1,38 +1,46 @@
 package com.example.swagger.controller;
 
-import com.example.swagger.dto.UserRequest;
-import com.example.swagger.dto.UserResponse;
+
+import com.example.swagger.dto.UserReq;
+import com.example.swagger.dto.UserRes;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = {"REST API CONTROLLER"})
+
+@Api(tags={"API를 정보를 제공하는 controller"})
 @RestController
 @RequestMapping("/api")
 public class ApiController {
 
-    @ApiOperation(value = "hello method", notes = "기본적인 인사 GET API")
-/*    @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "사용자 이름", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "age", value = "사용자 나이", required = true, dataType = "int", paramType = "query")
-    })*/
-    @GetMapping("/hello/{name}")
-    public String hello(
-            @ApiParam(value = "사용자 이름")
-            @PathVariable String name,
 
-            @ApiParam(value = "사용자 나이")
-            @RequestParam int age){
+    @GetMapping("/hello")
+    public String hello(){
         return "hello";
     }
 
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "x", value = "x값",required = true,dataType = "int"),
+            @ApiImplicitParam(name = "y", value = "y값",required = true,dataType = "int")}
+    )
+    @GetMapping("/plus/{x}")
+    public int plus(
+            @PathVariable int x, @RequestParam int y){
+        return x+y;
+    }
+
+
+    @ApiResponse(code=502,message = "사용자의 나이가 10살이하일때")
+    @ApiOperation(value="사용자의 이름과 나이를 echo하는 메소드")
     @GetMapping("/user")
-    public UserResponse user(UserRequest userRequest){
-        return new UserResponse(userRequest.getName(), userRequest.getAge());
+    public UserRes user(UserReq userReq){
+        return new UserRes(userReq.getName(),userReq.getAge());
     }
 
     @PostMapping("/user")
-    @ApiResponse(code = 404, message = "not found")
-    public UserResponse post(@RequestBody UserRequest userRequest){
-        return new UserResponse(userRequest.getName(), userRequest.getAge());
+    public UserRes userPost(@RequestBody UserReq req){
+        return new UserRes(req.getName(),req.getAge());
     }
+
+
 }
