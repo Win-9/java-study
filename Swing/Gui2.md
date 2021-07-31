@@ -82,6 +82,39 @@ GridLayout에 의해 4x3그리드로 분할된 프레임에 11개의 부착된�
 * hGap
 * vGap
 
+```java
+public MyFrame() {
+		setTitle("타이틀!");		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridLayout grid=new GridLayout(4,2);
+		grid.setVgap(5);
+		
+		Container c=getContentPane();
+		c.setBackground(Color.gray);
+		c.setLayout(grid);
+		c.add(new JLabel("Name"));
+		c.add(new JTextField(""));
+		c.add(new JLabel("Std-Number"));
+		c.add(new JTextField(""));
+		c.add(new JLabel("Major"));
+		c.add(new JTextField(""));
+		c.add(new JLabel("Subject"));
+		c.add(new JTextField(""));
+
+		
+
+		setSize(300,300);
+		setVisible(true);
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MyFrame f=new MyFrame();
+		
+	}
+```
+
 
 
 
