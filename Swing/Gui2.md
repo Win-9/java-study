@@ -119,4 +119,11 @@ public MyFrame() {
 ![image](https://user-images.githubusercontent.com/80390524/127733518-7f3adb25-6a54-4ec6-ae6e-149f9e090051.png)
 
 
+* 절대위치
 
+```java
+setLayout(null);
+```
+
+배치관리자를 지정하지 않는다는 의미로 절대 위치로 컴포넌트들을 나타낸다. 
+setSize와 setLocation 을 사용한다.
