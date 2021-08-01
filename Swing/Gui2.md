@@ -127,3 +127,30 @@ setLayout(null);
 
 배치관리자를 지정하지 않는다는 의미로 절대 위치로 컴포넌트들을 나타낸다. 
 setSize와 setLocation 을 사용한다.
+
+---
+
+### 컨테이너와 컴포넌트
+
+
+![image](https://user-images.githubusercontent.com/80390524/127765015-8e19798c-6178-4296-aff4-7d3c0224af04.png)
+
+
+
+(기본 컴포넌트와 컨테이너 컴포넌트 차이)
+
+
+컨테이너의 종류는 최상위 컨테이너와 일반 컨테이너가 있다.
+
+
+최상위 컨테이너: 다른 컨테이너 안에 포함될 수 없는 컨테이너
+
+> JApplet, JDialog, JFrame
+
+
+일반 컨테이너: 다른 컨테이너 안에 포함될 수 있는 컨테이너
+
+> JPanel, JScrollPane
+
+
+JFrame(최상위 컨테이너) 안에 JPanel(일반 컨테이너)는 들어갈 수 있지만, JPanel 안에 JFrame은 넣을 수 없다.
