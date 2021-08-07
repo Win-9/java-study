@@ -1,0 +1,69 @@
+package Event;
+
+import java.awt.Container;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class MyEvent2 extends JFrame{
+	
+	private JLabel j=new JLabel("HELLO");
+	private int x=50;
+	private int y=50;
+
+	
+	public MyEvent() {
+		setTitle("ex");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Container c=getContentPane();
+		j.setLocation(x,y);
+		c.addKeyListener(new MyKey());
+		c.add(j);
+		
+		setSize(600,600);
+		setVisible(true);
+		
+		c.setFocusable(true);
+		c.requestFocus();
+		
+	}
+	
+	class MyKey extends KeyAdapter{
+		
+		public void keyPressed(KeyEvent e) {
+			
+			switch(e.getKeyCode()) {
+			case KeyEvent.VK_UP:
+				y-=10;
+				j.setLocation(x,y);
+				break;
+				
+			case KeyEvent.VK_RIGHT:
+				x+=10;
+				j.setLocation(x,y);
+				break;
+			case KeyEvent.VK_DOWN:
+				y+=10;
+				j.setLocation(x,y);
+				break;
+			case KeyEvent.VK_LEFT:
+				x-=10;
+				j.setLocation(x,y);
+				break;
+				
+			}
+		}
+		
+	}
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		new MyEvent();
+	}
+
+}
+
