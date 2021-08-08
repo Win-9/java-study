@@ -59,6 +59,17 @@ c.repaint();
 
 
 
+### JLabel
+
+JLabel은 문자열이나 이미지를 스크린에 출력하는 레이블 컴포넌트를 만드는 클래스이다.
+이미지를 생성하기 위해서 ImageIcon클래스를 이용하여 이미지 파일로부터 이미지 객체를 생성하고, JLabel로 이미지 레이블을 생성한다.
+```java
+ImageIcon image=new ImageIcon("이미지~~.jpg");
+JLabel imageLabel=new JLabel(image);
+```
+
+
+
 
 
 
