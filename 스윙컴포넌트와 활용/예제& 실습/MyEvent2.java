@@ -16,9 +16,9 @@ public class MyEvent extends JFrame{
 		Container c=getContentPane();
 		c.setLayout(new FlowLayout());
 		
-		ImageIcon normalIcon=new ImageIcon("C:\\Users\\LG\\Desktop\\쇼듕\\아무사진\\국뽕1.jfif");
-		ImageIcon rolloverIcon=new ImageIcon("C:\\Users\\LG\\Desktop\\쇼듕\\아무사진\\국뽕2.jfif");
-		ImageIcon pressedIcon=new ImageIcon("C:\\Users\\LG\\Desktop\\쇼듕\\아무사진\\국뽕3.jfif");
+		ImageIcon normalIcon=new ImageIcon("이미지");
+		ImageIcon rolloverIcon=new ImageIcon("이미지");
+		ImageIcon pressedIcon=new ImageIcon("이미지");
 		
 		JButton j=new JButton("mooya~",normalIcon);
 		j.setPressedIcon(rolloverIcon);
