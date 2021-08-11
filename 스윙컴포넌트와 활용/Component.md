@@ -104,6 +104,52 @@ j.setRolloverIcon(rolloverIcon);
 j.setPressedIcon(pressedIcon);
 ```
 
+### 버튼과 레이블정렬
+
+버튼 컴포넌트와 레이블 컴포넌트는 정렬 기능을 이용하면 컴포넌트 내에 문자열과 이미지의 위치를 조정할 수 있다.
+
+* 수평정렬
+> void setHorizontalAlignment(int align)
+
+> SwingConstants.LEFT,SwingConstants.CENTER,SwingConstants.RIGHT
+
+* 수직정렬
+> void setVerticalAlignment(int align)
+
+> SwingConstants.TOP,SwingConstants.CENTER,SwingConstants.BOTTOM
+
+
+
+### JCheckBox, 체크박스 컴포넌트
+
+JCheckBox를 이용하면 선택과 해제의 두 상태만 가지는 체크박스 컴포넌트를 만들 수 있다.
+JButton과 마찬가지로 문자열, 이미지를 넣을수 있는 생성자들이 있다.
+
+```java
+JCheckBox pear=new JCheckBox("배",true)
+```
+true의 유뮤의 따라서 체크된상태와 안된상태를 구분지어 생성할 수 있다.
+
+이미지 체크바스는 setSelectedIcon()으로 이미지를 넣어 체크박스를 생성할 수 있다.
+
+
+
+### CheckBox와 이벤트처리
+
+Item 이벤트는 체크박스나 라디오버튼의 선택 상태가 바뀔때 발생하는 이벤트이다. 
+이미 선택상태인 라디오 버튼을 누르는 경우 선택 상태에 대한 변화가 없기 때문에 Item 이벤트는 발생하지 않는다.
+
+
+item이벤트 리스너는 ItemListener인터페이스를 상속받아 만들며, 다음 하나의 메소드로 구성된다.
+```java
+void itemStateChanged(ItemEvent e)
+```
+이 메소드가 호출된 시점에는 이미 체크박스는 화면에서 상태가 바뀌어있음을 기억해야한다.
+
+Item이벤트가 발생되면 ItemEvent 객체가 생성되어 itemStateChanged()의 인자로 전달된다.
+개발자는 ItemEvent 객체의 getStateChange()와 getItem()를 호출하여 체크상태의 변화와 이벤트 소스컴포넌트를 알아낼 수 있다.
+
+
 
 
 
