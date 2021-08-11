@@ -69,6 +69,44 @@ JLabel imageLabel=new JLabel(image);
 ```
 
 
+### JButton
+JButton은 버튼 컴포넌트를 만드는데 이용된다. 레이블 컴포넌트가 문자열이나 이미지를 활면에 출력하는 용도로 사용되는 것이라면,
+버튼은 사용자로부터 명령을 받기 위해 사요된다. 버튼을 마우스로 클릭하거나 선택하면 Action이벤트가 발생한다.
+
+* 생성자
+> JButton()
+
+> JButton(Icon Image)
+
+> JButton(String text)
+
+> JButton(String, text, Icon image)
+
+
+JButton은 사용자의 버튼 조작에 대한 시가적 효과를 극대화 하기위해서 마우스 접근에 따라서 모양이 다른
+3개의 버튼 이미지를 출력 할 수 있다.
+* normallIcon
+> 버튼이 보통상태에 있을때 출력되는 디폴트 이미지.
+
+* rolloverIcon
+> 버튼위에 마우스가 올라갈대 출력되는 이미지.
+
+* pressedIcon
+> 버튼이 눌려져 있는 동안 출력되는 이미지.
+
+```java
+ImageIcon normalIcon=new ImageIcon("이미지");
+ImageIcon rolloverIcon=new ImageIcon("이미지");
+ImageIcon pressedIcon=new ImageIcon("이미지");
+
+Jbutton j=new JButton("버튼",normalIcon);
+j.setRolloverIcon(rolloverIcon);
+j.setPressedIcon(pressedIcon);
+```
+
+
+
+
 
 
 
