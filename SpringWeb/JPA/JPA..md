@@ -60,3 +60,56 @@ public interface UserRepository extends JpaRepository<User,Long> {
 ```
 상속받은것만으로도 많은 JPA관련메소드를 지원해준다.
 > Entity의 타입과 User의 PK값을 받는다.
+
+
+
+H2 in memory DB는 데이터가 유지되니 않고, 테스트가 유지되는 시점에 데이터가 모두 사라지게 된다.
+Data.sql의 파일을 resources하위에 두게되면 JPA가 로딩을 할때 자동으로 해당 쿼리를 한번 실행시켜준다.
+> test파일의 resources가 아닌 main에 두게되면 main이 실행될대 마다 실행된다. 상황에 맞게 쓰면 된다.
+
+```java
+User user1=new User("Baek","Baek@naver.com");
+User user2=new User("Choi","Choi@naver.com");
+
+userRepository.saveAll(Lists.newArrayList(user1,user2));
+
+List<User>users=userRepository,findAll();
+users.forEach(System.our::println);
+```
+
+sql 에 inser할 필요없이 user에 대한 생성자를 작성후 saveAll()로 저장후 find All로 출력이 가능하다.
+
+
+
+cf) save와 saveAll()
+
+save의 구조를 살펴보면
+
+l) Save 는 기본적으로 @transaction 을 달고 있어서 만약 @transition 이 존재하지 않으면 자체적으로 생성해서 감싼다.
+
+z) entity null 체크 를 한다.
+
+3) 본기 문을 통해서 insert 또는 update 한다.
+
+Sale All 1) 의 내부를 보면 sure 가 사로 반복돼 있다.
+
+i.se 에가 N번 만큼 발생
+
+delete a delete All I) 도 마찬가지이다.
+- Get one : Entity 에 대한 LAZY 패치를 다운 한다.
+
+(find by Idi return 유는 객체가 Optional 로 빼빼이 되어 있다.
+
+. 아 FM로 nun 반환 가능.
+
+flush', 쿼리의 변화를 주는 것이 아니라 PR반영시점을 조절하는 것. 로2로 큰 변화를 확인하기는 어렵다.
+
+Count: long으로 return 하며 data의 갯수를 알려준다. delete In Butch 를 사용하게 되면
+
+user. exists By Id (소니 i 1번의 데이터의 유무를 boolean 으로 return fte 전 Settle 를 생략하고 delete 를 한다.
+
+Delete My Id: Id 로 레코드를 삭제 한다.
+
+t 값이 존재하는지 SE (ETE 를 시행하고 Delete.
+
+delete ((i htt. hi i)) 에서 여러 값에 대해서 n 반만큼의 settle 극 실행하게 표시
