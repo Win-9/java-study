@@ -80,36 +80,42 @@ users.forEach(System.our::println);
 sql 에 inser할 필요없이 user에 대한 생성자를 작성후 saveAll()로 저장후 find All로 출력이 가능하다.
 
 
-
+---
 cf) save와 saveAll()
 
 save의 구조를 살펴보면
 
 l) Save 는 기본적으로 @transaction 을 달고 있어서 만약 @transition 이 존재하지 않으면 자체적으로 생성해서 감싼다.
 
-z) entity null 체크 를 한다.
+2) entity null 체크 를 한다.
 
-3) 본기 문을 통해서 insert 또는 update 한다.
+3) 분기문을 통해서 insert 또는 update 한다.
 
-Sale All 1) 의 내부를 보면 sure 가 사로 반복돼 있다.
+Sale All() 의 내부를 보면 save가 for로 반복돼 있다.
 
-i.se 에가 N번 만큼 발생
+따라서 save() 가 N번 만큼 발생
 
-delete a delete All I) 도 마찬가지이다.
+delete 와 delete All () 도 마찬가지이다.
+
+---
+
 - Get one : Entity 에 대한 LAZY 패치를 다운 한다.
 
-(find by Idi return 유는 객체가 Optional 로 빼빼이 되어 있다.
+- findbyId(): return 되는 객체가 Optional 로 wrapping 되어 있다. .orElse null반환 가능.
+    > 웬만하면 orElseException을 사용하는것이 좋다.
 
-. 아 FM로 nun 반환 가능.
 
-flush', 쿼리의 변화를 주는 것이 아니라 PR반영시점을 조절하는 것. 로2로 큰 변화를 확인하기는 어렵다.
 
-Count: long으로 return 하며 data의 갯수를 알려준다. delete In Butch 를 사용하게 되면
+flush(): 쿼리의 변화를 주는 것이 아니라 DB반영시점을 조절하는 것. 로그로 큰 변화를 확인하기는 어렵다.
 
-user. exists By Id (소니 i 1번의 데이터의 유무를 boolean 으로 return fte 전 Settle 를 생략하고 delete 를 한다.
+Count(): long으로 return 하며 data의 갯수를 알려준다. 
 
-Delete My Id: Id 로 레코드를 삭제 한다.
+DeleteById: Id 로 레코드를 삭제 한다.
 
-t 값이 존재하는지 SE (ETE 를 시행하고 Delete.
++ 값이 존재하는지 Select를 실행하고 Delete.
 
-delete ((i htt. hi i)) 에서 여러 값에 대해서 n 반만큼의 settle 극 실행하게 표시
++ delete (List~(~,~)) 에서 여러 값에 대해서 n 반만큼의 Select 를 실행하게 된다.
+
+
+> delete In Butch 를 사용하게 되면
+> delete전 Select 를 생략하고 delete 를 한다.
