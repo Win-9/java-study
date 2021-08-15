@@ -152,7 +152,40 @@ Item이벤트가 발생되면 ItemEvent 객체가 생성되어 itemStateChanged(
 
 
 
+### JRadioButton
 
+라디오버튼은 이벤트 처리과정을 체크박스는 동일하지만, 라디오버튼은 여러개가 하나의 버튼 그룹을 형성하고, 그룹내에서 하나만 선택이 가능하다.
+라디오버튼은 생성자를 이용하여 생성하며, 디폴트가 해제상태이다.
+
+라디오버튼생성은 JRadioButton의 생성자를 호출하는 것으로 끝나지 않고, 4가지 과정이 필요하다.
+
+1. 우선 ButtonGroup으로 클래스를 이용하여 라디오버튼들을 묶을 버튼그룹 객체를 생성한다.
+2. JRadioButton생성자로 라디오 버튼을 생성하고 버튼그룹에 추가한다.
+3. 라디오 버튼을 화면에 출력하기 위해 컨테이너에 삽입한다.
+4. 이제 버튼그룹에 속한 라디오 버튼중 하나만 선택이 가능하다.
+
+```java
+ButtonGroup group=new ButtonGroup();
+		Container c=getContentPane();
+		c.setLayout(new FlowLayout());
+		
+		ButtonGroup buttonGroup=new ButtonGroup();
+		JRadioButton apple=new JRadioButton("사과");
+		JRadioButton pear=new JRadioButton("배",true);
+		JRadioButton cherry=new JRadioButton("체리");
+		
+		group.add(apple);
+		group.add(pear);
+		group.add(cherry);
+		
+		c.add(apple);
+		c.add(pear);
+		c.add(cherry);
+```
+
+라디오버튼에 선택상태가 변경되면 Item이벤트가 발생한다. 마우스와 키보드를 이용하거나 프로그램에서 JRadioButton()의 setSelected()를 호출하여
+선택상태를 변경할 수 있다. 이경우 모두 Item이벤트가 발생한다.
+> itemStateChanged(ItemEvent e)
 
 
 
