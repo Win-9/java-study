@@ -25,8 +25,18 @@ JList는 자체적으로 스크롤을 지원하지 않기 때문에 JScrollPane�
 > 컴파일러에게 경고하지 말도록 @SuppressWarnings를 붙히면 된다.
 
 
+JList가 생성자르 이용하여 리스트가 일단 생성되고나면, list의 벡터나 배열을 수정한다고해도이미 생성된리스트를 변경할 수 없다.
+생성된 리스트를 수정하는 가장 간단한 방법은 JList를 setListDate()메소드를 호출하여 리스트에 수저오딘 벡터나 배열을 새로 달아주느것이다.
+즉 list.add()로 원소를 추가한후, setListDate(list)로 리스트를 연결시킨다.
 
 
+```java
+JTextField t=(JTextField)e.getSource();
+				
+				list.add(t.getText());
+				text.setText("");
+				jlist.setListData(list);
+```
 
 
 
