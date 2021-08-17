@@ -83,8 +83,32 @@ JComboBox<String>jcomboxname=new JComboBox<>(str);
 > 하나의 아이템 선택시 Action이벤트는 무조건 한개 발생하지만, 지금 선택한 아이템이 바로 직전에 선택도니 아이템이라면 Item이벤트는 발생하지 않는다.
 > 새로운 아이템이 선택되었다면 2개의 Item이벤트가 발생하는데 새로 아이템이 선택되었음을 알리기 위한 Item이벤트와 이전에 선택된 아이템이 해제됨을 알리는 Item이다.
 
++ Jabel의 setIcon메소드로 이미지를 변경할 수 있다.
 
 
+
+
+### JSlider
+
+JSlider는 슬라이드 바를 출력하여, 마우스로 값을 선택하도록 하는 슬라이더 컴포넌트이다.
+슬라이더의 종류는 수평슬라이더와 수직슬라이더가 있으며, 생성후에도 변경할 수 있다.
+
+```java
+JSlider slider=new JSlider(JSlider.HORIZONTAL,0,200,100);
+		slider.setPaintLabels(true);
+		slider.setPaintTicks(true);
+		slider.setPaintTrack(true);
+		slider.setMajorTickSpacing(50);
+		slider.setMinorTickSpacing(10);
+```
+
+### Change
+
+Change이벤트는 스윙이벤트로, JSlider의 값이 바뀌면 발생한다.
+구체적으로 사용자가 슬라이더의 손잡이를 움직이는 동안 계속, 혹은 응용프로그램에서 JSlider의 seValue를 호출하여
+value값을 변경할때 Change이벤트가 발생한다.
+
+Change이벤트를 처리하는 리스너 인터페이스는 ChangeListener로서 stateChanged를 작성해야 한다.
 
 
 
