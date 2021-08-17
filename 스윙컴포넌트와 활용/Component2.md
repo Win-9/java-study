@@ -33,10 +33,60 @@ JList가 생성자르 이용하여 리스트가 일단 생성되고나면, list�
 ```java
 JTextField t=(JTextField)e.getSource();
 				
-				list.add(t.getText());
-				text.setText("");
-				jlist.setListData(list);
+list.add(t.getText());
+text.setText("");
+jlist.setListData(list);
 ```
+
+
+
+### JComboBox
+
+JComboBox는 텍스트필드, 버튼, 드롭다운리스트로 구성되는 콤보박스 컴포넌트를 구현한다.
+JComboBox에 제네릭을 도입하여 JComboBox로 사용한다. E는 콤보박스에 삽입되는 아이템의 타입으로, 콤보박스를 생성할때 E대신 아이템의 타입을 대입하여 구체화 해야한다.
+8개의 아이템을 가진 콤보박스 컴포넌트를 보여준자. 초기에는 텍스트필드 창과 버튼만 보이지만 버튼을 클릭하면 드롭다운 리스트가 아래로 출력되고,
+아이템을 선택하면 텍스트필드창에 나타난다.
+
+
+![image](https://user-images.githubusercontent.com/80390524/129688099-eacc5f77-5ed4-4587-a32a-86558775bcaf.png)
+
+
+JList와 같이, JComboBox나 생성자를 이용하여 벡터나 배열로부터 아이템을 공급받아 만들어진
+콤보박스는, 한번 생성된후 listData를 수정해도 콤보박스를 변경할 수 없거나 예측할 수 없는 일이 발생하므로 주의하기 바란다.
+
+```java
+JComboBox<String>combo=new JComboBox<>(arr);
+```
+
+콤보박스는 리스트와 달리 동적으로 아이템의 추가/삭제가 가능하다.
+addItem()메소드를 호출하여 아이템을 추가할 수 있다.
+
+removeItem(Object obj),removeItemAt(int index),removeAllItems()등을 호출하여
+콤보박스의 아이템을 삭제할 수 있다. index는 0부터 시작한다.
+
+
+
+```java
+JComboBox<String>jcomboxname=new JComboBox<>(str);
+
+		
+		for(int i=0;i<name.length;i++) {
+			jcomboxname.addItem(name[i]);
+		}
+		
+		c.add(jcomboxname);
+```
+
+
+아이템선택을 일종으로 명령으로 처리하고자 하면 Action이벤트를, 아이템을 선택하거나 해제하는 것이 목적이면 Item이벤트를 처리하면 된다.
+
+> 하나의 아이템 선택시 Action이벤트는 무조건 한개 발생하지만, 지금 선택한 아이템이 바로 직전에 선택도니 아이템이라면 Item이벤트는 발생하지 않는다.
+> 새로운 아이템이 선택되었다면 2개의 Item이벤트가 발생하는데 새로 아이템이 선택되었음을 알리기 위한 Item이벤트와 이전에 선택된 아이템이 해제됨을 알리는 Item이다.
+
+
+
+
+
 
 
 
