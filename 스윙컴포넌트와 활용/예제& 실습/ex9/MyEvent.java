@@ -19,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import Swing.ex7.South;
+
 public class MyEvent extends JFrame{
 	private ImageIcon[]image=new ImageIcon[3];
 	private JButton[]ImageButton=new JButton[3];
@@ -36,10 +38,13 @@ public class MyEvent extends JFrame{
 		
 		File f=new File("C:\\Users\\LG\\Desktop\\쇼듕\\아무사진\\가위바위보");
 		File[]name=f.listFiles();
-		System.out.println(name[2]);
 		JPanel north=new JPanel();
 		for(int i=0;i<3;i++) {
-			image[i]=new ImageIcon(name[0].toString());
+			image[i]=new ImageIcon(name[i].toString());
+			Image img=image[i].getImage();
+			Image change=img.getScaledInstance(255, 255, Image.SCALE_SMOOTH);
+			image[i]=new ImageIcon(change);
+			
 			ImageButton[i]=new JButton(image[i]);
 			ImageButton[i].setHorizontalAlignment(SwingConstants.CENTER);
 			ImageButton[i].addMouseListener(new MyListener());
@@ -71,41 +76,51 @@ public class MyEvent extends JFrame{
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
 			int num=(int)(Math.random()*3);
-			ImageIcon computer=new ImageIcon(image[num].toString());
 			if(e.getSource()==ImageButton[0]) {
 				player.setIcon(image[0]);
-				com.setIcon(computer);
 				if(num==0) {
+					com.setIcon(image[num]);
 					result.setText("Same!!");
 				}
 				else if(num==1) {
+					com.setIcon(image[num]);
 					result.setText("Computer!!");
 				}
 				else {
+					com.setIcon(image[num]);
 					result.setText("Me!!");
 					
 				}
 			}
 			else if(e.getSource()==ImageButton[1]) {
+				player.setIcon(image[1]);
+				com.setIcon(image[0]);
 				if(num==0) {
+					com.setIcon(image[num]);
 					result.setText("Me!!");
 				}
 				else if(num==1) {
+					com.setIcon(image[num]);
 					result.setText("Same!!");
-					
 				}
 				else {
+					com.setIcon(image[num]);
 					result.setText("Computer!!");
 				}
 			}
 			else {
+				player.setIcon(image[2]);
+				com.setIcon(image[0]);
 				if(num==0) {
+					com.setIcon(image[num]);
 					result.setText("Computer!!");
 				}
 				else if(num==1) {
+					com.setIcon(image[num]);
 					result.setText("Me!!");
 				}
 				else {
+					com.setIcon(image[num]);
 					result.setText("Same!!");
 				}
 			}				
