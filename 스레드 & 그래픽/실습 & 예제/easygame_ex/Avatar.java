@@ -1,4 +1,4 @@
-package thread.another;
+package thread.refac;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -8,33 +8,34 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JLabel;
 
-public class Avatar extends KeyAdapter{
-	private Container c;
+public class Avatar extends KeyAdapter {
+	private Container container;
 	private JLabel avatar;
-	public Avatar(Container c,JLabel avatar) {
+
+	public Avatar(Container container, JLabel avatar) {
 		// TODO Auto-generated constructor stub
-		this.c=c;
-		this.avatar=avatar;
+		this.container = container;
+		this.avatar = avatar;
 	}
-	
+
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		switch(e.getKeyCode()) {
-		
+		switch (e.getKeyCode()) {
+
 		case KeyEvent.VK_UP:
-			avatar.setLocation(avatar.getX(), avatar.getY()-10);
+			avatar.setLocation(avatar.getX(), avatar.getY() - 10);
 			break;
 		case KeyEvent.VK_DOWN:
-			avatar.setLocation(avatar.getX(), avatar.getY()+10);
+			avatar.setLocation(avatar.getX(), avatar.getY() + 10);
 			break;
 		case KeyEvent.VK_LEFT:
-			avatar.setLocation(avatar.getX()-10, avatar.getY());
+			avatar.setLocation(avatar.getX() - 10, avatar.getY());
 			break;
 		case KeyEvent.VK_RIGHT:
-			avatar.setLocation(avatar.getX()+10, avatar.getY());
+			avatar.setLocation(avatar.getX() + 10, avatar.getY());
 			break;
 		}
-		
-		c.repaint();
+
+		container.repaint();
 	}
 }
