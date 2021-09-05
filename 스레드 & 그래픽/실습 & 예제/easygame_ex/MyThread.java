@@ -1,4 +1,4 @@
-package thread.another;
+package thread.refac;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -11,64 +11,66 @@ import javax.swing.JLabel;
 
 public class MyThread extends JFrame {
 	private JLabel end;
-	
-	public MyThread() {
+	private JLabel avatar;
+	private JLabel monster;
+
+	void createAvatar(String shape) {
+		avatar = new JLabel(shape);
+		avatar.setForeground(Color.RED);
+		avatar.setSize(10, 10);
+		avatar.setLocation(20, 20);
+	}
+
+	void createMonster(String shape) {
+		monster = new JLabel(shape);
+		monster.setSize(10, 10);
+		monster.setLocation(100, 100);
+	}
+
+	void mymain() {
 		setTitle("ex");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		Container c=getContentPane();
-		
-		c.setLayout(null);
-		c.addKeyListener(new KeyAdapter() {
+
+		Container container = getContentPane();
+
+		container.setLayout(null);
+		container.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyChar()=='q') {
-					c.removeAll();
-					end=new JLabel("END!");
+				if (e.getKeyChar() == 'q') {
+					container.removeAll();
+					end = new JLabel("END!");
 					end.setLocation(50, 50);
-					end.setFont(new Font("Arial",Font.ITALIC,100));
+					end.setFont(new Font("Arial", Font.ITALIC, 100));
 					end.setForeground(Color.GREEN);
 					end.setSize(400, 400);
-					
-					c.repaint();
-					
-					c.add(end);
+
+					container.repaint();
+
+					container.add(end);
 				}
 			}
 		});
-		
-		JLabel avatar=new JLabel("A");
-		avatar.setForeground(Color.RED);
-		avatar.setSize(10,10);
-		avatar.setLocation(20, 20);
-		System.out.println("아아ㅏ");
+		createAvatar("A");
+		container.addKeyListener(new Avatar(container, avatar));
+		container.add(avatar);
 
-		c.addKeyListener(new Avatar(c,avatar));
-		
-		c.add(avatar);
-		JLabel monster=new JLabel("M");
-		
-		monster.setSize(10,10);
-		monster.setLocation(100, 100);
-		
-		c.add(monster);
-		
-		Monster monster_clazz=new Monster(monster, avatar, c);
-		
-		monster_clazz.start();
-		
-		
-		setSize(500,500);
+		createMonster("M");
+		container.add(monster);
+
+		Monster runMonster = new Monster(monster, avatar, container);
+		runMonster.start();
+
+		setSize(500, 500);
 		setVisible(true);
-		
-		c.setFocusable(true);
-		c.requestFocus();
+
+		container.setFocusable(true);
+		container.requestFocus();
 	}
-	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new MyThread();
+		MyThread mythread = new MyThread();
+		mythread.mymain();
 	}
 
 }
-
