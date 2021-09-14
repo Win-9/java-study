@@ -4,12 +4,10 @@ import javax.swing.JLabel;
 
 public class GamblingThread extends JLabel implements Runnable {
 	private JLabel[] gameLabel;
-	private JLabel result = new JLabel("마우스를 클릭할때마다 시작.");
-
-	public GamblingThread(JLabel[] gameLabel) {
+	private JLabel result;
+	public GamblingThread(JLabel[] gameLabel,JLabel result) {
 		this.gameLabel = gameLabel;
-		result.setLocation(30, 30);
-		add(result);
+		this.result=result;
 		Thread th = new Thread(this);
 		th.start();
 	}
@@ -35,12 +33,11 @@ public class GamblingThread extends JLabel implements Runnable {
 	}
 
 	public boolean isSame() {
-		return gameLabel[0].getText() == gameLabel[1].getText() && 
-				gameLabel[1].getText() == gameLabel[2].getText();
+		return gameLabel[0].getText().equals(gameLabel[1].getText() ) && 
+				gameLabel[1].getText().equals(gameLabel[2].getText());
 	}
 
 	synchronized public void waitForGambling() {
-		System.out.println("앙멈췄디");
 		try {
 			wait();
 		} catch (InterruptedException e) {
